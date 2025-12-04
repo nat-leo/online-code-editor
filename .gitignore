@@ -1,63 +1,41 @@
-# Dependencies
-node_modules/
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-package-lock.json
-npm-lock.yaml
+.pnpm-debug.log*
 
-# Next.js build output
-.next/
-out/
-.next-static/
-.next-turbo/
+# env files (can opt-in for committing if needed)
+.env*
 
-# Turbo / monorepo stuff
-.turbo/
-turbo-dev.log
+# vercel
+.vercel
 
-# Production build
-dist/
-
-# Env files
-.env
-.env*.local
-
-# Logs
-logs/
-*.log
-*.log.*
-log/
-pids/
-*.pid
-*.seed
-*.pid.lock
-
-# OS junk
-.DS_Store
-Thumbs.db
-
-# Editor junk
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Testing / coverage
-coverage/
-jest-html-reporters-*.html
-.jest/
-
-# Storybook
-storybook-static/
-.out/
-
-# VSCode settings
-*.code-workspace
-
-# Misc
-*.tgz
-.eslintcache
-.next/trace
-.next/cache/
+# typescript
+*.tsbuildinfo
+next-env.d.ts
