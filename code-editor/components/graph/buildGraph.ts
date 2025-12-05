@@ -6,6 +6,10 @@ export type GraphNode = {
   label: string;
   parentId: string | null;
   progress: number; // 0–1 for color, fake for now
+  x?: number;
+  y?: number;
+  vx?: number;
+  vy?: number;
 };
 
 export type GraphLink = {
