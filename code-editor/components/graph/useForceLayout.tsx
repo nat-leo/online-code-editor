@@ -33,8 +33,8 @@ export function useForceLayout(
     const simulation = forceSimulation(simNodes)
       .force(
         "link",
-        forceLink(simLinks)
-          .id((d: any) => d.id)
+        forceLink<GraphNode, GraphLink>(simLinks)
+          .id((d) => d.id)
           .distance(80)
       )
       .force("charge", forceManyBody().strength(-120))

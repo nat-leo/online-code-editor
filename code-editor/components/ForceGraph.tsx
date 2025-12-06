@@ -3,6 +3,7 @@
 
 import { useState, useMemo } from "react";
 import { motion } from "motion/react";
+import { useTheme } from "@/hooks/use-theme";
 import { rawNodes } from "./data/rawNodes";
 import { buildGraph } from "./graph/buildGraph";
 import { useForceLayout } from "./graph/useForceLayout";
@@ -10,14 +11,15 @@ import { useForceLayout } from "./graph/useForceLayout";
 const WIDTH = 800;
 const HEIGHT = 600;
 
-function progressToColor(progress: number): string {
-  // super simple red → yellow → green
-  if (progress < 0.33) return "#ef4444"; // red-500
-  if (progress < 0.66) return "#eab308"; // yellow-500
-  return "#22c55e"; // green-500
+function progressToColor(progress: number, colors: [string, string, string]): string {
+  if (progress < 0.33) return colors[0];
+  if (progress < 0.66) return colors[1];
+  return colors[2];
 }
 
 export function ForceGraph() {
+  const { theme } = useTheme();
+
   const { nodes: initialNodes, links: initialLinks } = useMemo(
     () => buildGraph(rawNodes),
     []
@@ -27,7 +29,7 @@ export function ForceGraph() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   return (
-    <div className="flex items-center justify-center bg-slate-900">
+    <div className="flex items-center justify-center rounded-3xl bg-card/60 p-4 shadow-2xl shadow-card/40">
       <svg width={WIDTH} height={HEIGHT}>
         {/* edges */}
         {links.map((l, i) => {
@@ -42,7 +44,7 @@ export function ForceGraph() {
               y1={source.y}
               x2={target.x}
               y2={target.y}
-              stroke="#4b5563"
+              stroke={theme.graphLine}
               strokeWidth={1}
             />
           );
@@ -71,15 +73,15 @@ export function ForceGraph() {
             >
               <circle
                 r={16}
-                fill={progressToColor(n.progress)}
-                stroke={isSelected ? "#e5e7eb" : "#111827"}
+                fill={progressToColor(n.progress, theme.progressColors)}
+                stroke={isSelected ? theme.graphHighlight : theme.graphLine}
                 strokeWidth={isSelected ? 2 : 1}
               />
               <text
                 y={30}
                 textAnchor="middle"
                 fontSize={10}
-                fill="#e5e7eb"
+                fill={theme.graphText}
               >
                 {n.label}
               </text>
@@ -90,4 +92,3 @@ export function ForceGraph() {
     </div>
   );
 }
-
