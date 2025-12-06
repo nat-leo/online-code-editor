@@ -213,11 +213,11 @@ if __name__ == "__main__":
       },
       { status: 200 }
     );
-  } catch (err: any) {
-    return NextResponse.json(
-      { detail: err.message || "Execution error" },
-      { status: 500 }
-    );
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Execution error";
+
+    return NextResponse.json({ detail: message }, { status: 500 });
   } finally {
     fs.rm(tmpDir, { recursive: true, force: true }).catch(() => {});
   }
