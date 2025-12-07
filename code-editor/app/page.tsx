@@ -48,11 +48,11 @@ export default function Home() {
 
       <div className="flex flex-1 min-h-0">
         <section className="lg:flex lg:w-[28%] min-w-[260px] max-w-md border-r border-border bg-card/30 p-4">
-          <ForceGraph />
+          <ProblemsList problems={problems} />
         </section>
 
         <section className="flex-1 flex flex-col lg:flex-row min-h-0">
-          <ProblemsList problems={problems} />
+          <ForceGraph />
         </section>
       </div>
     </div>
