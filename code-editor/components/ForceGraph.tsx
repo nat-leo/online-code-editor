@@ -7,9 +7,7 @@ import { useTheme } from "@/hooks/use-theme";
 import { rawNodes } from "./data/rawNodes";
 import { buildGraph } from "./graph/buildGraph";
 import { useForceLayout } from "./graph/useForceLayout";
-
-const WIDTH = 800;
-const HEIGHT = 600;
+import { useElementSize } from "@/hooks/use-element-size";
 
 function progressToColor(progress: number, colors: [string, string, string]): string {
   if (progress < 0.33) return colors[0];
@@ -19,18 +17,23 @@ function progressToColor(progress: number, colors: [string, string, string]): st
 
 export function ForceGraph() {
   const { theme } = useTheme();
+  const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const { nodes: initialNodes, links: initialLinks } = useMemo(
     () => buildGraph(rawNodes),
     []
   );
 
-  const { nodes, links } = useForceLayout(initialNodes, initialLinks, WIDTH, HEIGHT);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const { ref, width, height } = useElementSize<HTMLDivElement>();
+
+  const { nodes, links } = useForceLayout(initialNodes, initialLinks, width, height)
 
   return (
-    <div className="flex items-center justify-center rounded-3xl bg-card/60 p-4 shadow-2xl shadow-card/40">
-      <svg width={WIDTH} height={HEIGHT}>
+    <div ref={ref} className="flex items-center justify-center rounded-3xl bg-card/60 p-4 shadow-2xl shadow-card/40">
+      <svg className="h-full w-full"
+          viewBox={`0 0 ${width} ${height}`}
+          preserveAspectRatio="xMidYMid meet">
+
         {/* edges */}
         {links.map((l, i) => {
           const source = nodes.find((n) => n.id === l.source)!;

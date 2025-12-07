@@ -47,7 +47,7 @@ export default function Home() {
       </div>
 
       <div className="flex flex-1 min-h-0">
-        <section className="hidden lg:flex lg:w-[28%] min-w-[260px] max-w-md border-r border-border bg-card/30 p-4">
+        <section className="lg:flex lg:w-[28%] min-w-[260px] max-w-md border-r border-border bg-card/30 p-4">
           <ForceGraph />
         </section>
 

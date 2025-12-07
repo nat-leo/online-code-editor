@@ -20,15 +20,20 @@ export function useForceLayout(
   const [, setTick] = useState(0); // just to re-render
 
   useEffect(() => {
+    if (width === 0 || height === 0) return;
+
     // Copy to avoid mutating props directly
-    const simNodes = nodes.map((n) => ({ ...n })) as (GraphNode & {
+    const simNodes = initialNodes.map((n) => ({ ...n })) as (GraphNode & {
       x?: number;
       y?: number;
       vx?: number;
       vy?: number;
     })[];
 
-    const simLinks = links.map((l) => ({ ...l }));
+    const simLinks = initialLinks.map((l) => ({ ...l }));
+
+    // Reset the state before the layout starts so the SVG matches the new sim nodes.
+    setNodes(simNodes.map((n) => ({ ...n })));
 
     const simulation = forceSimulation(simNodes)
       .force(
@@ -49,8 +54,7 @@ export function useForceLayout(
     return () => {
       simulation.stop();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // run once
+  }, [initialNodes, initialLinks, width, height]);
 
   return { nodes, links };
 }
