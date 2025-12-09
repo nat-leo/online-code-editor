@@ -1,16 +1,9 @@
-// components/problem-sidebar.tsx
-import type { Problem } from "@/lib/types"; // wherever your Problem interface lives
+import type { Problem } from "@/lib/types";
 
-type Difficulty = Problem["difficulty"];
-
-const difficultyStyles: Record<Difficulty, string> = {
-  easy: "bg-emerald-900/40 text-emerald-300 border-emerald-500/60",
-  medium: "bg-amber-900/40 text-amber-300 border-amber-500/60",
-  hard: "bg-rose-900/40 text-rose-300 border-rose-500/60",
-};
+import { difficultyClasses } from "@/lib/difficulty";
 
 export function ProblemSidebar({ problem }: { problem: Problem }) {
-  const diffStyle = difficultyStyles[problem.difficulty];
+  const diffStyle = difficultyClasses[problem.difficulty];
 
   return (
     <aside className="flex h-full w-full max-w-md flex-col border-r border-border bg-card/40">

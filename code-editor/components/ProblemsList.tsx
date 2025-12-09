@@ -4,24 +4,12 @@ import { Badge } from "@/components/ui/badge";
 import { CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type Difficulty = "easy" | "medium" | "hard";
-
-export type Problem = {
-  slug: string;
-  title: string;
-  difficulty: Difficulty;
-  hasSubmission: boolean;
-};
+import { difficultyClasses } from "@/lib/difficulty";
+import type { Problem } from "@/lib/types";
 
 interface ProblemsListProps {
   problems: Problem[];
 }
-
-const difficultyClasses: Record<Difficulty, string> = {
-  easy: "bg-emerald-950 text-emerald-300 border border-emerald-700/70",
-  medium: "bg-amber-950 text-amber-300 border border-amber-700/70",
-  hard: "bg-rose-950 text-rose-300 border border-rose-700/70",
-};
 
 export function ProblemsList({ problems }: ProblemsListProps) {
   return (
@@ -49,7 +37,7 @@ export function ProblemsList({ problems }: ProblemsListProps) {
 
                 <Badge
                   className={cn(
-                    "text-[11px] font-medium px-2 py-0.5 rounded-full",
+                    "text-[11px] font-medium px-2 py-0.5 rounded-full border",
                     difficultyClasses[problem.difficulty]
                   )}
                 >
