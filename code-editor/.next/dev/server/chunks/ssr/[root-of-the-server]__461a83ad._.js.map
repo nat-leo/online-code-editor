@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 18, "column": 0}, "map": {"version":3,"sources":["file:///Users/natleo/Desktop/online-code-editor/code-editor/app/problems/%5Bslug%5D/page.tsx"],"sourcesContent":["// app/problems/[slug]/page.tsx\nexport default async function ProblemPage({ params }: { params: { slug: string } }) {\n  return <div>{params.slug}</div>;\n}"],"names":[],"mappings":"AAAA,+BAA+B;;;;;;;AAChB,eAAe,YAAY,EAAE,MAAM,EAAgC;IAChF,qBAAO,8OAAC;kBAAK,OAAO,IAAI;;;;;;AAC1B"}}]
+}

@@ -2,6 +2,16 @@
 
 export type ThemeId = "midnight" | "sunrise" | "forest";
 
+export type EditorTheme = {
+  base: "vs" | "vs-dark" | "hc-black";
+  background: string;
+  foreground: string;
+  selection: string;
+  lineHighlight: string;
+  cursor: string;
+  gutter: string;
+};
+
 export type ThemeDefinition = {
   id: ThemeId;
   name: string;
@@ -11,6 +21,7 @@ export type ThemeDefinition = {
   graphLine: string;
   graphHighlight: string;
   graphText: string;
+  editor: EditorTheme;
 };
 
 const themeDefinitions: ThemeDefinition[] = [
@@ -55,6 +66,15 @@ const themeDefinitions: ThemeDefinition[] = [
     graphLine: "#475569",
     graphHighlight: "#f8fafc",
     graphText: "#e2e8f0",
+    editor: {
+      base: "vs-dark",
+      background: "#020617",
+      foreground: "#f1f5f9",
+      selection: "#22d3ee33",
+      lineHighlight: "#1f293322",
+      cursor: "#22d3ee",
+      gutter: "#475569",
+    },
   },
   {
     id: "sunrise",
@@ -97,6 +117,15 @@ const themeDefinitions: ThemeDefinition[] = [
     graphLine: "#94a3b8",
     graphHighlight: "#0f172a",
     graphText: "#111827",
+    editor: {
+      base: "vs",
+      background: "#fff8f4",
+      foreground: "#111827",
+      selection: "#fb923c33",
+      lineHighlight: "#fefaf633",
+      cursor: "#fb923c",
+      gutter: "#94a3b8",
+    },
   },
   {
     id: "forest",
@@ -139,6 +168,15 @@ const themeDefinitions: ThemeDefinition[] = [
     graphLine: "#4c7c54",
     graphHighlight: "#d9f99d",
     graphText: "#e0f2fe",
+    editor: {
+      base: "vs-dark",
+      background: "#0b1f16",
+      foreground: "#d9f99d",
+      selection: "#4ade8033",
+      lineHighlight: "#142b1f33",
+      cursor: "#4ade80",
+      gutter: "#4c7c54",
+    },
   },
 ];
 
