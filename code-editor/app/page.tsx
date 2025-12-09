@@ -5,25 +5,25 @@ import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 
 const problems = [
   {
-    id: "two-sum",
+    slug: "two-sum",
     title: "Two Sum",
     difficulty: "easy",
     hasSubmission: true,
   },
   {
-    id: "longest-substring-without-repeating-characters",
+    slug: "longest-substring-without-repeating-characters",
     title: "Longest Substring Without Repeating Characters",
     difficulty: "medium",
     hasSubmission: false,
   },
   {
-    id: "merge-intervals",
+    slug: "merge-intervals",
     title: "Merge Intervals",
     difficulty: "medium",
     hasSubmission: true,
   },
   {
-    id: "regular-expression-matching",
+    slug: "regular-expression-matching",
     title: "Regular Expression Matching",
     difficulty: "hard",
     hasSubmission: false,
@@ -42,7 +42,6 @@ export default function Home() {
             Back at it again, {user}
           </span>
         </div>
-
         <ThemeSwitcher />
       </div>
 

@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 type Difficulty = "easy" | "medium" | "hard";
 
 export type Problem = {
-  id: string;
+  slug: string;
   title: string;
   difficulty: Difficulty;
   hasSubmission: boolean;
@@ -33,8 +33,8 @@ export function ProblemsList({ problems }: ProblemsListProps) {
       <div className="flex flex-col gap-2">
         {problems.map((problem) => (
           <Link
-            key={problem.id}
-            href={`/problems/${problem.id}`}
+            key={problem.slug}
+            href={`/problems/${problem.slug}`}
             className="block"
           >
             <Button
