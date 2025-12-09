@@ -10,9 +10,36 @@ import { useForceLayout } from "./graph/useForceLayout";
 import { useElementSize } from "@/hooks/use-element-size";
 
 function progressToColor(progress: number, colors: [string, string, string]): string {
-  if (progress < 0.33) return colors[0];
-  if (progress < 0.66) return colors[1];
-  return colors[2];
+  const clamp = Math.max(0, Math.min(1, progress));
+  const hexToRgb = (hex: string) => {
+    const clean = hex.replace("#", "");
+    const value = parseInt(clean, 16);
+    return [
+      (value >> 16) & 0xff,
+      (value >> 8) & 0xff,
+      value & 0xff,
+    ];
+  };
+  const rgbToHex = (r: number, g: number, b: number) =>
+    `#${((1 << 24) + (r << 16) + (g << 8) + b)
+      .toString(16)
+      .slice(1)}`;
+
+  const isFirstSegment = clamp <= 0.5;
+  const segmentProgress = isFirstSegment ? clamp / 0.5 : (clamp - 0.5) / 0.5;
+  if (segmentProgress <= 0) return isFirstSegment ? colors[0] : colors[1];
+  if (segmentProgress >= 1) return isFirstSegment ? colors[1] : colors[2];
+
+  const [segmentStartHex, segmentEndHex] = isFirstSegment
+    ? [colors[0], colors[1]]
+    : [colors[1], colors[2]];
+  const segmentStart = hexToRgb(segmentStartHex);
+  const segmentEnd = hexToRgb(segmentEndHex);
+  const interpolated = segmentStart.map((channel, index) =>
+    Math.round(channel + (segmentEnd[index] - channel) * segmentProgress)
+  ) as [number, number, number];
+
+  return rgbToHex(...interpolated);
 }
 
 export function ForceGraph() {
