@@ -53,11 +53,16 @@ export function ForceGraph() {
 
   const { ref, width, height } = useElementSize<HTMLDivElement>();
 
-  const { nodes, links } = useForceLayout(initialNodes, initialLinks, width, height)
+  const { nodes, links } = useForceLayout(
+    initialNodes,
+    initialLinks,
+    width || 0,
+    height || 0
+  );
 
   return (
-    <div ref={ref} className="flex items-center justify-center rounded-3xl bg-card/60 p-4 shadow-2xl shadow-card/40">
-      <svg className="h-full w-full"
+    <div ref={ref} className="h-80 w-full flex items-center justify-center rounded-3xl bg-card/60 p-4 shadow-2xl shadow-card/40">
+      <svg className="w-full h-full"
           viewBox={`0 0 ${width} ${height}`}
           preserveAspectRatio="xMidYMid meet">
 
