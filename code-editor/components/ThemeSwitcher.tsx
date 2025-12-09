@@ -1,5 +1,13 @@
 "use client";
 
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+
 import { useTheme } from "@/hooks/use-theme";
 import { themeList, type ThemeId } from "@/lib/theme";
 import { cn } from "@/lib/utils";
@@ -22,17 +30,23 @@ export function ThemeSwitcher({ className }: ThemeSwitcherProps) {
         Theme
       </span>
 
-      <select
-        value={themeId}
-        onChange={(event) => setThemeId(event.target.value as ThemeId)}
-        className="rounded border border-border bg-input/80 px-2 py-1 text-[11px] font-semibold text-foreground outline-none transition focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/60"
-      >
-        {themeList.map((theme) => (
-          <option key={theme.id} value={theme.id}>
-            {theme.name}
-          </option>
-        ))}
-      </select>
+      <Select value={themeId} onValueChange={(v) => setThemeId(v as ThemeId)}>
+        <SelectTrigger className="h-auto bg-input/80 px-2 py-1 text-[11px] font-semibold uppercase tracking-wide text-foreground">
+          <SelectValue />
+        </SelectTrigger>
+
+        <SelectContent>
+          {themeList.map((theme) => (
+            <SelectItem
+              key={theme.id}
+              value={theme.id}
+              className="text-[11px] font-semibold uppercase tracking-wide"
+            >
+              {theme.name}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </label>
   );
 }
