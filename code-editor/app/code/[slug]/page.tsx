@@ -3,6 +3,10 @@
 import { useEffect, useState } from "react";
 import CodeEditor from "@/components/CodeEditor";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+
+import type { Problem } from "@/lib/types";
+import { sampleProblems } from "@/components/data/Problems";
 
 const DEFAULT_CODE = `class Solution:
     def solution(self, nums):
@@ -11,9 +15,30 @@ const DEFAULT_CODE = `class Solution:
         return sum(nums)
 `;
 
-export default function Home() {
-  const [language, setLanguage] = useState("python");
-  const [code, setCode] = useState(DEFAULT_CODE);
+type PageProps = {
+  params: {
+    slug: string;
+  };
+};
+
+export default async function Code({ params }: PageProps) {
+  const { slug } = await params;
+  
+  const problem: Problem | undefined = sampleProblems.find(
+    (p) => p.slug === slug
+  );
+
+  if (!problem) {
+    return (
+      <div className="flex min-h-screen w-full items-center justify-center text-muted-foreground">
+        Problem &quot;{slug}&quot; not found.
+      </div>
+    );
+  }
+
+  const initialCode = problem.starter_code ?? DEFAULT_CODE;
+  const language = "python";
+  const [code, setCode] = useState(initialCode);
 
   // JSON describing arguments to pass to Solution().solution(...)
   // Here: solution([1, 2, 3, 4, 5])
@@ -22,11 +47,15 @@ export default function Home() {
   const [output, setOutput] = useState("");
   const [error, setError] = useState("");
   const [isRunning, setIsRunning] = useState(false);
-
+  // Ensure the saved code or starter snippet is shown on load
   useEffect(() => {
     const saved = localStorage.getItem("editor:code");
-    if (saved) setCode(saved);
-  }, []);
+    if (saved) {
+      setCode(saved);
+    } else {
+      setCode(initialCode);
+    }
+  }, [initialCode]);
 
   const handleCodeChange = (value: string) => {
     setCode(value);
@@ -69,21 +98,8 @@ export default function Home() {
       <div className="flex items-center gap-4 border-b border-border bg-card/40 px-4 py-3">
         <h1 className="text-lg font-semibold">Editor</h1>
 
-        <label className="flex items-center gap-2 text-sm text-muted-foreground">
-          <span className="text-sm font-semibold">Language</span>
-
-          <div className="relative">
-            <select
-              className="rounded border border-border bg-input/80 px-2 py-1 text-sm font-semibold text-foreground outline-none focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/60"
-              value={language}
-              onChange={(e) => setLanguage(e.target.value)}
-            >
-              <option value="python">Python 3.13</option>
-            </select>
-          </div>
-        </label>
-
         <div className="ml-auto flex items-center gap-3">
+          <LanguageSwitcher />
           <ThemeSwitcher />
 
           <button

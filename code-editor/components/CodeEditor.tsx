@@ -8,9 +8,10 @@ import { useTheme } from "@/hooks/use-theme";
 type Props = {
   language: string;
   code: string;
+  onChange: Function;
 };
 
-export default function CodeEditor({ language, code }: Props) {
+export default function CodeEditor({ language, code, onChange }: Props) {
   const monaco = useMonaco();
   const { themeId, theme } = useTheme();
 
@@ -48,6 +49,7 @@ export default function CodeEditor({ language, code }: Props) {
       height="100%"
       language={language}
       theme={monaco ? `editor-${themeId}` : undefined}
+      onChange={(e) => onChange(e)}
       value={code}
       options={{
         minimap: { enabled: true },

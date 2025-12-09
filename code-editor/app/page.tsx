@@ -1,6 +1,8 @@
 "use client";
 import { ForceGraph } from "@/components/ForceGraph";
-import { Problem, ProblemsList } from "@/components/ProblemsList";
+import { ProblemsList } from "@/components/ProblemsList";
+import type { Problem } from "@/lib/types";
+
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 
 const problems = [
