@@ -39,7 +39,7 @@ export function ProblemsList({ problems }: ProblemsListProps) {
           >
             <Button
               variant="outline"
-              className="w-full h-auto justify-between px-4 py-3 border-border bg-background hover:bg-muted"
+              className="w-full h-auto justify-between px-4 py-3 border-border bg-background text-foreground hover:bg-muted hover:text-foreground"
             >
               {/* Left side: title + difficulty */}
               <div className="flex flex-col items-start gap-1">
